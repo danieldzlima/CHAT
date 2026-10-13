@@ -28,17 +28,16 @@ Edite meu vídeo no estilo de um **vlog brasileiro de bastidores de oficina/proj
 - Selfie de perto com o rosto ocupando 1/3 do quadro, o fundo da oficina inteiro aparecendo e luz de teto tubular.
 - Tremido natural é OK, desde que não estrague a leitura. Estabilize só o que estiver ilegível.
 
-### 4. Color grading
-- **Look "oficina limpa / fria"**: brancos limpos, levemente **frios (azulados)**, sombras quase pretas, **contraste médio-alto** e **saturação alta só nas cores fortes** (o roxo do carro, o vermelho e o azul dos bonés, o amarelo da fita).
-- Paleta de referência: `#14191D` (sombras) · `#505961` · `#8A959A` · `#A4B5B4` · `#C4D6D5` (altas luzes frias) + acentos saturados roxo/azul/vermelho.
-- Sem look de cinema, sem grão, sem vinheta pesada. Fica entre o "nítido de YouTube" e o "punchy".
-- Sugestão ffmpeg: `eq=contrast=1.12:saturation=1.25:gamma=0.97,colortemperature=temperature=5800,unsharp=5:5:0.6` (ajuste à luz do seu material).
+### 4. Color grading — cores da LataVéias
+- Base nas cores da logo: **azul-marinho/azul elétrico** `#04183D` → `#2961B3`, **vermelho** `#B12327` e **aço escovado** `#B8BBC2` / `#F5F6F6`.
+- Altas luzes neutras e limpas (cor de aço, nada amarelado), sombras levemente puxadas para o azul-marinho. **Azul e vermelho saltam**, o resto fica um pouco dessaturado. Contraste médio-alto, sem grão e sem vinheta pesada.
+- Filtro testado: `eq=contrast=1.15:gamma=0.96:saturation=0.9,colorbalance=bs=0.05:bm=0.03:rh=-0.03,huesaturation=saturation=0.45:colors=b+c+m,huesaturation=saturation=0.4:colors=r,unsharp=5:5:0.5`
 
 ### 5. Elementos gráficos / overlays
-- **Card do criador fixo no canto inferior esquerdo**: foto redonda + NOME em caixa alta, itálico e negrito branco, com um botão de inscrever pequeno. Depois de um tempo ele **alterna para um QR code** com o nome embaixo. Ocupa ~10% da altura e fica no vídeo quase todo.
-- **Tag de patrocinador no rodapé central**: retângulo branco pequeno de canto arredondado com o logo da marca em preto. Aparece **quando o produto entra em cena** e some depois de ~3 s. Também há uma tag "PATROCINADORES" sobre o close do produto.
-- Legendas: **não** use legenda corrida estilo TikTok (a referência é horizontal e não tem). Texto na tela só para nome, patrocinador ou piada pontual.
-- Fonte: sans-serif bold condensada e itálica (tipo Montserrat ExtraBold Italic / Bebas).
+- **Card LataVéias** (`intro/card-lataveias.png`): avatar LV redondo com anel azul/vermelho, a logo LataVéias e o botão vermelho INSCREVA-SE. Fica no canto inferior esquerdo com ~26% da altura e aparece nos primeiros 10 s, depois a cada ~3 min por ~8 s e no final.
+- **Sem QR code e sem patrocinador.**
+- Legendas: **não** use legenda corrida estilo TikTok no vídeo horizontal. Texto na tela só para nome ou piada pontual, em fonte bold itálica branca. Para destaques, use caixa vermelha `#B12327`.
+- Fonte: sans-serif bold itálica (FreeSans Bold Oblique / Montserrat ExtraBold Italic).
 
 ### 6. Áudio
 - A fala é a protagonista: voz alta e clara, **loudness final ~ -14 a -15 LUFS** (a referência mede -15,4 LUFS).
@@ -50,11 +49,11 @@ Edite meu vídeo no estilo de um **vlog brasileiro de bastidores de oficina/proj
 1. **Gancho (0–5 s)**: alguém falando com a câmera e prometendo o que vai acontecer.
 2. **Processo (miolo)**: blocos de trabalho, cada um com explicação, close e reação, separados por whip.
 3. **Interações**: entram outras pessoas ou convidados, numa conversa descontraída com zoeira.
-4. **Bloco de publi no final**: plano mais aberto e estável, a pessoa segurando o produto na frente da câmera, card do criador e QR code visíveis.
+4. **Fechamento**: plano mais aberto e estável, com o resultado do dia, o pedido de inscrição e o card LataVéias na tela.
 5. **Encerramento** rápido, sem tela final longa.
 
 ### 8. O que NÃO fazer
-- Não deixe silêncio, nem plano parado por mais de ~6 s (fora da publi).
+- Não deixe silêncio, nem plano parado por mais de ~6 s (fora do fechamento).
 - Não use transições de template (cubo, página virando, dissolve longo).
 - Não deixe o grading quente ou amarelado e não lave as cores.
 - Não cubra o rosto ou a peça principal com overlay.

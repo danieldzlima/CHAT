@@ -1,6 +1,6 @@
 ---
 name: video-editing
-description: Rough-cut a talking-head video (TikTok, Reels, Shorts, YouTube): joins clips, cuts silences and retakes, never cuts inside a word, transcribes. Then applies Daniel's reference style pass (workshop-vlog look: grading, whip transitions, creator card, sponsor tags). Use for "edit my video", "cut the silences", "remove my retakes", "corta os silêncios", "edita no estilo da referência".
+description: Rough-cut a talking-head video (TikTok, Reels, Shorts, YouTube): joins clips, cuts silences and retakes, never cuts inside a word, transcribes. Then applies Daniel's reference style pass (workshop-vlog look, LataVéias brand colors, whip transitions, creator card). Use for "edit my video", "cut the silences", "remove my retakes", "corta os silêncios", "edita no estilo da referência".
 ---
 
 # Video editing (rough cut + style pass)
@@ -85,7 +85,7 @@ The reference is a 22-min, 16:9 Brazilian car-workshop vlog: GoPro in hand, seve
 - **Hook in the first 3–5 s**: someone talking straight to the camera and promising what will happen. No long intro.
 - In the middle, cycle **talk → close-up of the detail → reaction**.
 - Repetitive manual work (sanding, welding, taking things apart) → speed up 2x–4x: `setpts=PTS/3`, plus `atempo=2,atempo=1.5` for the audio or mute it.
-- **Sponsor block at the end**: a wider, steadier shot, longer takes (~9 s), product held to the camera.
+- **Closing block**: a wider, steadier shot, longer takes (~9 s): the result of the day, a call to subscribe, the card on screen.
 - Short ending, no long end screen.
 
 ## Transitions (90% hard cuts)
@@ -105,29 +105,35 @@ ffmpeg -i main.mp4 -i meme.mp4 -filter_complex "[0:v]scale=iw*0.85:-2,rotate=-6*
 
 Never use template transitions (cube, page turn, long dissolve).
 
-## Color grading
+## Color grading — LataVéias brand colors
 
-The look is "clean, cold workshop": clean whites, slightly blue, near-black shadows, medium-high contrast, strong saturation in the bold colors (purple, red, blue, tape yellow). No film grain, no heavy vignette, no warm or yellow look.
+Use the colors of Daniel's LataVéias logo (`intro/perfil-lv.jpg`, `intro/logo-lataveias.png` in the CHAT repo):
+- **Navy / electric blue** `#04183D` (shadows) → `#2961B3` (accent)
+- **Racing red** `#B12327`
+- **Brushed steel** `#B8BBC2` / `#F5F6F6` (neutral highlights)
 
-Palette: `#14191D` (shadows) · `#505961` · `#8A959A` · `#A4B5B4` · `#C4D6D5` (highlights) + saturated accents.
+The look: neutral, clean steel highlights (no yellow) and shadows pulled slightly toward navy. **Blue and red pop** (car paint, caps, tools), while the other colors stay a bit desaturated so the brand colors stand out. Medium-high contrast, no grain, no heavy vignette.
 
-Starting point (tested, adjust to the footage's light):
+Tested filter (ffmpeg 6+):
 ```sh
--vf "eq=contrast=1.12:saturation=1.25:gamma=0.97,colortemperature=temperature=5800,unsharp=5:5:0.6"
+-vf "eq=contrast=1.15:gamma=0.96:saturation=0.9,colorbalance=bs=0.05:bm=0.03:rh=-0.03,huesaturation=saturation=0.45:colors=b+c+m,huesaturation=saturation=0.4:colors=r,unsharp=5:5:0.5"
 ```
+- If skin gets too red, lower the second `huesaturation` to 0.2.
+- Night or driving footage with dark shadows: use `bs=0.03` so the blacks don't go blue.
+- On older ffmpeg without `huesaturation`, use `eq=contrast=1.15:saturation=1.15,colorbalance=bs=0.05:rh=-0.03`.
 
 Export one comparison frame (before | after, `hstack`), show Daniel, and only then render the whole thing.
 
 ## Overlays
 
-- **Creator card**: bottom-left, about 10% of the height, on screen almost the whole video. It has a round photo, the NAME in bold white caps italic and a small subscribe button, and after a while it switches to a QR code. Ask Daniel for the PNG of the card and the QR (or build them) and overlay with `overlay=30:H-h-30`.
-- **Sponsor tag**: a small white rounded box with the brand logo, bottom center. It appears when the product is on screen and lasts ~3 s. Tested:
+- **Creator card**: `intro/card-lataveias.png` in the CHAT repo (transparent PNG, 420×520). It has the round LV avatar with a blue/red ring, the LataVéias wordmark and a red INSCREVA-SE button. It sits bottom-left at ~26% of the frame height. Tested:
   ```sh
-  -vf "drawbox=x=(iw-160)/2:y=ih-40:w=160:h=26:color=white@1:t=fill:enable='between(t,A,B)',drawtext=text='MARCA':x=(w-tw)/2:y=h-34:fontsize=14:fontcolor=black:enable='between(t,A,B)'"
+  -i card-lataveias.png -filter_complex "[1:v][0:v]scale2ref=w=oh*mdar:h=ih*0.26[c][v];[v][c]overlay=x=W*0.025:y=H-h-H*0.03"
   ```
-  With a logo PNG, use `overlay=(W-w)/2:H-h-14:enable='between(t,A,B)'` instead.
-- Font: bold condensed italic sans-serif (Montserrat ExtraBold Italic / Bebas Neue).
-- **No running TikTok-style captions** in the horizontal version. On-screen text is only for a name, a sponsor or a one-off joke. If a vertical cut (Reels/Shorts) is asked for, use the `.srt` the script generates as running captions.
+  Don't keep it on all the time. Show it in the first ~10 s, then for ~8 s every ~3 min, and again at the end: add `:enable='between(t,0,10)+between(t,180,188)+...'` to the `overlay`. A fade (`fade=in:st=0:d=0.3:alpha=1`) on the card stream before scaling makes it smoother.
+- **No QR code and no sponsor tags** (LataVéias has neither for now). If a sponsor appears later, ask Daniel for the logo PNG.
+- On-screen text: FreeSans Bold Oblique or Montserrat ExtraBold Italic, white with a dark shadow. Red `#B12327` boxes for highlights, matching the INSCREVA-SE button.
+- **No running TikTok-style captions** in the horizontal version. On-screen text is only for a name or a one-off joke. If a vertical cut (Reels/Shorts) is asked for, use the `.srt` the script generates as running captions.
 - Never cover a face or the main part with an overlay.
 
 ## Audio
