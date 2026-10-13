@@ -1,24 +1,27 @@
-import sys, os, math, subprocess, wave
+import sys, os, math, subprocess, wave, tempfile, shutil
 import numpy as np
 from PIL import Image, ImageFilter
 
+# Usage: gerar_intro.py logo.png saida.mp4 [vertical|horizontal]
 logo_path, out_path = sys.argv[1], sys.argv[2]
-W, H, FPS, DUR = 1080, 1920, 30, 4.0
+orient = sys.argv[3] if len(sys.argv) > 3 else "vertical"
+W, H = (1920, 1080) if orient == "horizontal" else (1080, 1920)
+FPS, DUR = 30, 4.0
 N = int(FPS * DUR)
 rng = np.random.default_rng(7)
-tmp = os.path.join(os.path.dirname(os.path.abspath(__file__)), "frames")
-os.makedirs(tmp, exist_ok=True)
+tmp = tempfile.mkdtemp(prefix="intro_frames_")
 
-# Logo, scaled to ~85% of the frame width
+
+# Logo, scaled to ~85% of the frame width (55% in landscape)
 logo = Image.open(logo_path).convert("RGBA")
-lw = int(W * 0.85)
+lw = int(W * (0.55 if orient == "horizontal" else 0.85))
 logo = logo.resize((lw, int(logo.height * lw / logo.width)), Image.LANCZOS)
 la = np.asarray(logo).astype(np.float32) / 255.0
 
 # Background: dark charcoal with a warm spotlight behind the logo
 yy, xx = np.mgrid[0:H, 0:W].astype(np.float32)
 cy = H * 0.5
-d = np.sqrt(((xx - W / 2) / W) ** 2 + ((yy - cy) / (H * 0.6)) ** 2)
+d = np.sqrt(((xx - W / 2) / max(W, H) * 1.2) ** 2 + ((yy - cy) / (max(W, H) * 0.6)) ** 2)
 spot = np.clip(1 - d * 1.6, 0, 1) ** 2
 bg = np.zeros((H, W, 3), np.float32)
 bg += np.array([0.04, 0.04, 0.045])
@@ -147,3 +150,4 @@ subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-framerate", str(FPS), "-
                 "-i", wav, "-c:v", "libx264", "-pix_fmt", "yuv420p", "-crf", "18",
                 "-c:a", "aac", "-b:a", "192k", "-shortest", "-movflags", "+faststart", out_path], check=True)
 print("ok", out_path)
+shutil.rmtree(tmp)
