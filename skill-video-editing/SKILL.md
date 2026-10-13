@@ -70,23 +70,59 @@ The model downloads itself on first run into `~/.cache/whisper-cpp/` (from huggi
 
 # Style pass — reference: workshop vlog (Lucas Fontana style)
 
-Use this only when Daniel asks for "o estilo da referência", "estilo oficina" or similar. It comes **after** the rough cut. It never replaces the LataVéias continuity rule above.
+Use this when Daniel asks for "o estilo da referência", "estilo oficina" or a full edit of a LataVéias video. It comes **after** the rough cut. It never replaces the LataVéias continuity rule above.
 
 The reference is a 22-min, 16:9 Brazilian car-workshop vlog: GoPro in hand, several people talking while they work, close-ups of the process. It feels **real and live, not commercial**. It has 296 cuts (median 3 s per shot, ~3.5 s in the first 15 min, ~9 s in the closing sponsor block) and only 3 silences in 22 min.
 
-## Where the fast rhythm applies (LataVéias)
+## Daniel's videos (LataVéias)
 
-- **Workshop / explanation / build segments**: fast rhythm is OK (rough cut with default `--min-sil`).
-- **Driving / conversation in the car**: keep continuity. Use `--min-sil 0.6` or more, `--protect` on the conversation, and no jump cuts mid-sentence.
-- Before running, show Daniel which segments you will treat as workshop and which as driving, and confirm.
+He films **alone**, holding the camera or with it mounted in the car. There are four formats, and often several in one video. Before cutting, tell Daniel which format each part is and confirm.
+
+| Format | Cut rhythm | What matters |
+|---|---|---|
+| **Driving** (showing something while he drives) | Continuity: `--min-sil 0.6`+, `--protect` on what he's saying, no jump cut mid-sentence | Engine sound, road, the car responding |
+| **Part that arrived** (unboxing, explaining the part) | Fast, like the reference: default `--min-sil` | Close-ups of the part, the box, details, the brand |
+| **Next upgrades** (plans) | Medium: `--min-sil 0.35` | Show the place on the car where the part goes, while he talks |
+| **Result after maintenance/upgrade** (how it turned out) | Fast showing it, continuity when driving | **Before vs after** |
+
+### Rules for each format
+- **Driving**:
+  - The engine is almost as important as the voice. Don't push the car sound under the voice. Lower it only where the voice gets drowned out.
+  - Clean wind and road noise off the voice with the `video-cleanup` skill before the style pass.
+  - Speed up (2x–4x) only stretches of road **with no talking**.
+  - Never cut in the middle of a gear change or an acceleration he is showing.
+- **Part that arrived**: talk → close-up of the part → back to his face. If there is no close-up B-roll, use a slow zoom (punch-in 110–120%) on the shot itself to vary it: `zoompan` or `crop` + `scale`.
+- **Next upgrades**: when he names a part or a place on the car and there is footage of it, put it over the voice as B-roll, with the audio still his voice.
+- **Before vs after**:
+  - Look for "before" footage in the same video or in clips Daniel points to.
+  - Do a side-by-side (`hstack`) or a hard cut before → after with a whip transition.
+  - Text "ANTES" / "DEPOIS" in a red box (`#B12327`).
+  - For a sound upgrade (exhaust, intake), put the before and after sound one after the other.
 
 ## Rhythm and structure
+- **Hook in the first 3–5 s**: Daniel talking to the camera, or the best moment of the video (the result, the engine sound, the part) as a teaser.
+- **Then the intro**, after the hook, never at second 0. See "Intro" below.
+- In the middle, follow the format's rhythm from the table above.
+- **Closing**: the result or the conclusion, a call to subscribe with the card on screen, ~10 s. No long end screen.
 
-- **Hook in the first 3–5 s**: someone talking straight to the camera and promising what will happen. No long intro.
-- In the middle, cycle **talk → close-up of the detail → reaction**.
-- Repetitive manual work (sanding, welding, taking things apart) → speed up 2x–4x: `setpts=PTS/3`, plus `atempo=2,atempo=1.5` for the audio or mute it.
-- **Closing block**: a wider, steadier shot, longer takes (~9 s): the result of the day, a call to subscribe, the card on screen.
-- Short ending, no long end screen.
+## Intro
+
+Files are in the CHAT repo, folder `intro/` (on Daniel's PC, keep a copy in `Desktop\vlog_edicao\`):
+
+| File | Use |
+|---|---|
+| `intro-lataveias-youtube-azul.mp4` | **default for YouTube**, Daniel's favorite (1920×1080, 4 s, logo lands with blue/red brand light) |
+| `intro-lataveias-azul.mp4` | the same in vertical (1080×1920, 4 s), for Shorts/Reels |
+| `intro-lataveias-lv-youtube.mp4` | alternative (6.7 s, the LV emblem turns into the logo) |
+| `intro-lataveias-youtube.mp4` / `intro-lataveias.mp4` | old gold versions, don't use |
+
+To change the intro's colors, regenerate it with `python gerar_intro.py logo-lataveias.png <out>.mp4 horizontal|vertical` (colors in the `BLUE`/`RED` variables).
+
+Insert it after the hook (tested; the intro is scaled to the video's resolution and fps):
+```sh
+ffmpeg -i hook.mp4 -i intro-lataveias-youtube-azul.mp4 -i rest.mp4 -filter_complex "[1:v]scale=<W>:<H>:flags=lanczos,fps=<FPS>,setsar=1,format=yuv420p[iv];[0:v]setsar=1,format=yuv420p[v0];[2:v]setsar=1,format=yuv420p[v2];[1:a]aresample=48000,aformat=channel_layouts=stereo[ia];[0:a]aresample=48000,aformat=channel_layouts=stereo[a0];[2:a]aresample=48000,aformat=channel_layouts=stereo[a2];[v0][a0][iv][ia][v2][a2]concat=n=3:v=1:a=1[v][a]" -map "[v]" -map "[a]" ...
+```
+Split the edited video into `hook` (first 3–5 s, cut at the end of a sentence) and `rest` with `-ss`/`-t` before this step.
 
 ## Transitions (90% hard cuts)
 
@@ -141,3 +177,38 @@ Export one comparison frame (before | after, `hstack`), show Daniel, and only th
 - The voice is the star: final loudness **-14 LUFS** (`loudnorm=I=-14:TP=-1.5:LRA=11`). The reference measures -15.4 LUFS.
 - Keep the workshop ambient sound (tools, welding, laughter).
 - Background music low (−20 to −25 dB under the voice), rising only on whips and sped-up parts.
+
+---
+
+# Preview, export and extras
+
+## Preview before the final render
+Daniel's files are several GB. Before the full render on his PC, make a **fast 480p preview** with the cuts, the color and the card:
+```sh
+-vf "scale=-2:480,<grade>" -c:v libx264 -preset veryfast -crf 28 -c:a aac -b:a 128k preview.mp4
+```
+He approves it, and only then do you render the final file.
+
+## Export
+- **Keep the resolution and fps of the original footage. Never lower them.**
+  - Recorded in **4K** → export in **4K** (3840×2160). On YouTube, a 4K upload gets the better codec (VP9/AV1) and a higher bitrate, so it looks sharper even for people watching at 1080p.
+  - Recorded in **1080p** → export in 1080p. Upscaling to 4K only adds a little sharpness on YouTube, with a much bigger file and a slower render, so do it only if Daniel asks.
+- Check the source with `ffprobe` before choosing.
+- The intro and the card are 1080p. In a 4K video, scale them with `flags=lanczos` (already in the commands above).
+- Settings:
+  - 4K: `-c:v libx264 -preset slow -crf 18 -pix_fmt yuv420p` (or `-c:v h264_nvenc -cq 19` if the PC has an NVIDIA GPU, which is much faster).
+  - 1080p: the same with `-crf 18`.
+  - Audio: `-c:a aac -b:a 192k -ar 48000` + `loudnorm=I=-14:TP=-1.5:LRA=11`.
+  - Always add `-movflags +faststart`.
+- Always save under a **new name** (`<name>_final_4k.mp4`). Never overwrite the original.
+
+## Deliver with the video (from the `.txt`/`.srt` the script generates)
+1. **YouTube chapters** with times (`00:00 Intro`, `00:45 A peça chegou`...), already adjusted for the hook + intro.
+2. **3 title suggestions** in Daniel's style (direct, curious, with the car's name).
+3. **3–5 thumbnail frames**: moments with a clear expression or the part/car in focus. Export them as PNGs at full resolution.
+
+## Short version (Shorts/Reels), when Daniel asks
+- Pick 1–3 moments of 30–60 s that stand alone: the result, the engine sound, the part being opened.
+- Reframe to 9:16 (`crop=ih*9/16:ih`, centered on Daniel or the part).
+- Running captions from the `.srt` (white bold italic, active word in red `#B12327`).
+- The vertical intro `intro-lataveias-azul.mp4` is optional. In Shorts it's better to start on the action and put the intro at the end, or leave it out.
