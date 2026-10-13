@@ -11,7 +11,7 @@ Edite meu vídeo no estilo de um **vlog brasileiro de bastidores de oficina/proj
 
 ### 1. Ritmo e cortes
 - **Jump cuts o tempo todo**: tire todo silêncio, respiração longa, "éé…" e repetição. A referência quase não tem pausa (só 3 silêncios em 22 minutos).
-- **Duração dos planos**: mediana de **3 s**. Nos primeiros 15 minutos, um corte a cada **3,5 s**. No bloco final (conversa ou publi), os planos ficam mais longos: **~9 s**.
+- **Duração dos planos**: mediana de **3 s**. Nos primeiros 15 minutos, um corte a cada **3,5 s**. No bloco final (conversa ou fechamento), os planos ficam mais longos: **~9 s**.
 - Intercale **fala → close do detalhe → reação**: alguém explica, corta para a mão ou a peça em super close, volta para o rosto rindo.
 - Pode cortar no meio do movimento da câmera. Não precisa esperar estabilizar.
 - **Gancho nos primeiros 3 s**: pessoa olhando para a câmera fazendo "joinha" ou falando direto com quem assiste. Nada de vinheta longa no começo.
