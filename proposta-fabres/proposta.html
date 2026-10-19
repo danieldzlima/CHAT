@@ -1,0 +1,386 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Proposta Fabres Auto Detail</title>
+<style>
+@page { size: A4; margin: 0; }
+:root{
+  --carbon:#0B0D10; --carbon2:#15181D; --carbon3:#1F242B;
+  --red:#E3262B; --white:#F6F7F8; --steel:#9AA3AC; --ink:#111418; --muted:#5B636C; --line:#E2E5E9;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#fff}
+body{font-family:"Inter",sans-serif;color:var(--ink);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.page{width:210mm;height:297mm;position:relative;overflow:hidden;page-break-after:always;padding:18mm 16mm 16mm}
+section.page:last-of-type{page-break-after:avoid}
+.dark{background:var(--carbon);color:var(--white)}
+.light{background:#fff}
+.soft{background:#F3F4F6}
+.kicker{font-size:10.5pt;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--red);display:flex;gap:8px;align-items:center}
+.kicker b{display:inline-block;background:var(--red);color:#fff;padding:2px 7px;border-radius:3px;font-size:9.5pt;letter-spacing:.06em}
+h1{font-family:"Inter Display","Inter";font-weight:900;font-style:italic;font-size:34pt;line-height:1.02;letter-spacing:-.02em;margin-top:6mm;text-transform:uppercase}
+h1 em{color:var(--red);font-style:italic}
+h2{font-family:"Inter Display","Inter";font-weight:900;font-style:italic;font-size:19pt;line-height:1.1;text-transform:uppercase;letter-spacing:-.01em}
+p,li{font-size:11.5pt;line-height:1.5}
+.lead{font-size:13pt;line-height:1.5;color:var(--muted);margin-top:5mm;max-width:165mm}
+.dark .lead{color:#C4CAD0}
+.footer{position:absolute;left:16mm;right:16mm;bottom:9mm;display:flex;justify-content:space-between;font-size:9pt;font-weight:600;color:var(--muted);border-top:1px solid var(--line);padding-top:3mm}
+.dark .footer{color:#7E8790;border-color:#2A3038}
+.footer span:last-child{color:var(--red);font-weight:800}
+.photo{background-size:cover;background-position:center;border-radius:6px}
+ul.dots{list-style:none}
+ul.dots li{position:relative;padding-left:7mm;margin:2.2mm 0}
+ul.dots li:before{content:"";position:absolute;left:0;top:.55em;width:9px;height:9px;background:var(--red);transform:skewX(-18deg)}
+.card{border-radius:8px;padding:7mm}
+.card.dk{background:var(--carbon2);color:var(--white)}
+.card.lt{background:#fff;border:1px solid var(--line)}
+.card.gr{background:#F3F4F6}
+.tag{font-size:9.5pt;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:3mm}
+.stripe{position:absolute;height:6px;background:var(--red);transform:skewX(-30deg)}
+</style>
+</head>
+<body>
+<!-- logo symbols (defined last; <use> works document-wide) -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <!-- Logo: speed slashes + italic wordmark + beltline swoosh + shine -->
+    <g id="logo-core">
+      <!-- speed slashes -->
+      <path d="M38 52 L62 52 L32 130 L8 130 Z" fill="var(--logo-red)"/>
+      <path d="M78 52 L94 52 L64 130 L48 130 Z" fill="var(--logo-red)" opacity=".7"/>
+      <!-- wordmark -->
+      <text x="108" y="130" font-family="Inter Display, Inter" font-weight="900" font-style="italic" font-size="104" letter-spacing="-3" fill="var(--logo-fg)">FABRES</text>
+      <!-- beltline swoosh -->
+      <path d="M100 150 C260 146 430 140 560 124 C585 121 605 117 622 110 C606 126 585 134 560 139 C430 156 260 160 92 160 Z" fill="var(--logo-red)"/>
+      <!-- shine -->
+      <use href="#spark" x="566" y="18" width="52" height="52" fill="var(--logo-fg)"/>
+      <use href="#spark" x="604" y="58" width="20" height="20" fill="var(--logo-fg)" opacity=".7"/>
+      <!-- tagline -->
+      <text x="112" y="196" font-family="Inter" font-weight="800" font-size="27" letter-spacing="13" fill="var(--logo-sub)">AUTO DETAIL</text>
+    </g>
+    <symbol id="logo-light" viewBox="0 0 640 210"><g style="--logo-fg:#F6F7F8;--logo-red:#E3262B;--logo-sub:#9AA3AC"><use href="#logo-core"/></g></symbol>
+    <symbol id="logo-dark" viewBox="0 0 640 210"><g style="--logo-fg:#0B0D10;--logo-red:#E3262B;--logo-sub:#5B636C"><use href="#logo-core"/></g></symbol>
+    <symbol id="logo-mono" viewBox="0 0 640 210"><g style="--logo-fg:#FFFFFF;--logo-red:#0B0D10;--logo-sub:#FFFFFF"><use href="#logo-core"/></g></symbol>
+
+    <!-- Avatar -->
+    <clipPath id="avclip"><circle cx="100" cy="100" r="96"/></clipPath>
+    <symbol id="avatar" viewBox="0 0 200 200">
+      <circle cx="100" cy="100" r="98" fill="#0B0D10"/>
+      <g clip-path="url(#avclip)">
+        <path d="M-10 70 L120 -10 L150 -10 L-10 95 Z" fill="#fff" opacity=".07"/>
+        <path d="M14 140 C70 137 120 132 160 122 C172 119 182 115 190 110 C182 122 170 129 158 132 C118 143 70 148 10 149 Z" fill="#E3262B"/>
+      </g>
+      <text x="96" y="122" text-anchor="middle" font-family="Inter Display, Inter" font-weight="900" font-style="italic" font-size="80" letter-spacing="-4" fill="#F6F7F8">FD</text>
+      <use href="#spark" x="136" y="40" width="30" height="30" fill="#F6F7F8"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- SVG logo defs -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="spark" viewBox="-10 -10 20 20"><path d="M0-10 C1-2 2-1 10 0 C2 1 1 2 0 10 C-1 2 -2 1 -10 0 C-2 -1 -1 -2 0-10Z"/></symbol>
+  </defs>
+</svg>
+
+<!-- ===== 1. CAPA ===== -->
+<section class="page dark" style="padding:0">
+  <div class="photo" style="position:absolute;inset:0;border-radius:0;background-image:url(img/j8.jpg);background-position:50% 55%"></div>
+  <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(11,13,16,.92) 0%,rgba(11,13,16,.55) 32%,rgba(11,13,16,.15) 55%,rgba(11,13,16,.85) 78%,rgba(11,13,16,.98) 100%)"></div>
+  <div style="position:absolute;left:16mm;top:18mm;width:120mm">
+    <svg viewBox="0 0 640 210" width="100%"><use href="#logo-light"/></svg>
+  </div>
+  <div style="position:absolute;left:16mm;right:16mm;bottom:22mm">
+    <div class="kicker">Proposta de presença digital</div>
+    <h1 style="font-size:40pt">O trabalho já brilha.<br><em>Agora ele precisa aparecer.</em></h1>
+    <p class="lead" style="color:#D5DADF">Marca, Instagram, Google, Maps e WhatsApp trabalhando juntos para quem procura estética automotiva em Cândido de Abreu e região encontrar a Fabres antes de depender de indicação.</p>
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-top:12mm;padding-top:5mm;border-top:1px solid rgba(255,255,255,.18)">
+      <div><div style="font-size:9.5pt;color:#9AA3AC;font-weight:600">Preparado para</div><div style="font-size:14pt;font-weight:800">Cleverson Fabres</div></div>
+      <div style="text-align:right"><div style="font-size:9.5pt;color:#9AA3AC;font-weight:600">DZL Studio</div><div style="font-size:12pt;font-weight:800;color:var(--red)">Outubro 2026</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 2. OPORTUNIDADE ===== -->
+<section class="page light">
+  <div class="kicker"><b>01</b> Oportunidade</div>
+  <h1>O serviço já impressiona.<br><em>A internet ainda não sabe.</em></h1>
+  <p class="lead">Os vídeos mostram técnica, equipamento, reflexo e acabamento. Isso já é material de venda — só que hoje ele fica com quem já conhece o trabalho.</p>
+
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5mm;margin-top:9mm">
+    <div>
+      <div class="photo" style="height:78mm;background-image:url(img/c8.jpg);background-position:50% 45%"></div>
+      <h2 style="margin-top:4mm;font-size:14pt">Processo</h2>
+      <p style="color:var(--muted);font-size:10.5pt">Máquina, boinas e produtos certos passam confiança.</p>
+    </div>
+    <div>
+      <div class="photo" style="height:78mm;background-image:url(img/j32.jpg);background-position:50% 40%"></div>
+      <h2 style="margin-top:4mm;font-size:14pt">Acabamento</h2>
+      <p style="color:var(--muted);font-size:10.5pt">O céu refletido na porta prova a qualidade.</p>
+    </div>
+    <div>
+      <div class="photo" style="height:78mm;background-image:url(img/j28.jpg);background-position:50% 50%"></div>
+      <h2 style="margin-top:4mm;font-size:14pt">Resultado</h2>
+      <p style="color:var(--muted);font-size:10.5pt">O carro pronto é a melhor propaganda.</p>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:5mm;margin-top:9mm">
+    <div class="card dk">
+      <div class="tag">Hoje</div>
+      <h2 style="font-size:15pt">Perfil pessoal + trabalhos soltos</h2>
+      <ul class="dots" style="margin-top:3mm;color:#E4E7EA">
+        <li>Quem chega não entende na hora o que é oferecido</li>
+        <li>Clientes novos dependem quase só de indicação</li>
+        <li>Não existe um caminho claro até o orçamento</li>
+      </ul>
+    </div>
+    <div class="card gr">
+      <div class="tag">Objetivo</div>
+      <h2 style="font-size:15pt">Marca local fácil de achar</h2>
+      <ul class="dots" style="margin-top:3mm">
+        <li>Instagram com cara de negócio</li>
+        <li>Aparecer certo no Google e no Maps</li>
+        <li>Todo conteúdo levando ao WhatsApp</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer"><span>DZL STUDIO · Proposta Fabres Auto Detail</span><span>02</span></div>
+</section>
+
+<!-- ===== 3. IDENTIDADE ===== -->
+<section class="page light">
+  <div class="kicker"><b>02</b> Identidade visual</div>
+  <h1>Uma marca com<br><em>cara de pista e de brilho.</em></h1>
+  <p class="lead"><strong style="color:var(--ink)">Fabres Auto Detail.</strong> O sobrenome vira marca e o “Auto Detail” deixa claro, de cara, que é estética automotiva — não lava-jato.</p>
+
+  <div style="display:grid;grid-template-columns:1.75fr 1fr;gap:5mm;margin-top:8mm">
+    <div class="card" style="background:var(--carbon);display:flex;align-items:center;justify-content:center;height:68mm;position:relative;overflow:hidden">
+      <svg viewBox="0 0 640 210" width="92%"><use href="#logo-light"/></svg>
+    </div>
+    <div class="card" style="background:var(--white);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;height:68mm">
+      <svg viewBox="0 0 200 200" width="78%"><use href="#avatar"/></svg>
+    </div>
+    <div class="card lt" style="display:flex;align-items:center;justify-content:center;height:40mm">
+      <svg viewBox="0 0 640 210" width="78%"><use href="#logo-dark"/></svg>
+    </div>
+    <div class="card" style="background:var(--red);display:flex;align-items:center;justify-content:center;height:40mm">
+      <svg viewBox="0 0 640 210" width="92%"><use href="#logo-mono"/></svg>
+    </div>
+  </div>
+
+  <div class="card gr" style="margin-top:5mm;padding:6mm 7mm">
+    <div class="tag">O que o logo diz</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6mm">
+      <div><h2 style="font-size:12.5pt">Letra inclinada</h2><p style="font-size:10.5pt;color:var(--muted)">Movimento e velocidade, como em marcas de motorsport.</p></div>
+      <div><h2 style="font-size:12.5pt">Linha da lataria</h2><p style="font-size:10.5pt;color:var(--muted)">O traço vermelho segue o vinco lateral de um carro.</p></div>
+      <div><h2 style="font-size:12.5pt">Brilho</h2><p style="font-size:10.5pt;color:var(--muted)">O reflexo é o que o polimento entrega.</p></div>
+    </div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4mm;margin-top:6mm">
+    <div><div style="height:16mm;border-radius:6px;background:#0B0D10"></div><p style="font-size:9.5pt;font-weight:800;margin-top:2mm">CARBONO</p><p style="font-size:9pt;color:var(--muted)">#0B0D10</p></div>
+    <div><div style="height:16mm;border-radius:6px;background:#E3262B"></div><p style="font-size:9.5pt;font-weight:800;margin-top:2mm">VERMELHO</p><p style="font-size:9pt;color:var(--muted)">#E3262B</p></div>
+    <div><div style="height:16mm;border-radius:6px;background:#F6F7F8;border:1px solid #CDD2D7"></div><p style="font-size:9.5pt;font-weight:800;margin-top:2mm">BRANCO</p><p style="font-size:9pt;color:var(--muted)">#F6F7F8</p></div>
+    <div><div style="height:16mm;border-radius:6px;background:#9AA3AC"></div><p style="font-size:9.5pt;font-weight:800;margin-top:2mm">AÇO</p><p style="font-size:9pt;color:var(--muted)">#9AA3AC</p></div>
+  </div>
+  <div class="footer"><span>DZL STUDIO · Proposta Fabres Auto Detail</span><span>03</span></div>
+</section>
+
+<!-- ===== 4. INSTAGRAM ===== -->
+<section class="page soft">
+  <div class="kicker"><b>03</b> Instagram</div>
+  <h1>Em 5 segundos,<br><em>a pessoa entende e chama.</em></h1>
+
+  <div style="display:grid;grid-template-columns:86mm 1fr;gap:9mm;margin-top:9mm">
+    <!-- phone -->
+    <div style="background:#0B0D10;border-radius:11mm;padding:3.2mm;height:192mm">
+      <div style="background:#fff;border-radius:8mm;height:100%;overflow:hidden;padding:5mm 4mm 0">
+        <div style="display:flex;justify-content:space-between;font-weight:800;font-size:10.5pt"><span>fabresdetail</span><span>•••</span></div>
+        <div style="display:flex;align-items:center;gap:4mm;margin-top:4mm">
+          <svg viewBox="0 0 200 200" style="width:21mm;height:21mm;flex:none"><use href="#avatar"/></svg>
+          <div style="display:flex;gap:4mm;text-align:center;flex:1;justify-content:space-around">
+            <div><div style="font-weight:800;font-size:11pt">38</div><div style="font-size:8pt;color:var(--muted)">posts</div></div>
+            <div><div style="font-weight:800;font-size:11pt">1.248</div><div style="font-size:8pt;color:var(--muted)">seguidores</div></div>
+            <div><div style="font-weight:800;font-size:11pt">310</div><div style="font-size:8pt;color:var(--muted)">seguindo</div></div>
+          </div>
+        </div>
+        <div style="margin-top:3mm;font-size:9.5pt;line-height:1.45">
+          <b>Fabres Auto Detail | Estética Automotiva</b><br>
+          ✨ Polimento técnico · Vitrificação<br>
+          🚗 Higienização · Detalhamento<br>
+          📍 Cândido de Abreu e região<br>
+          <b>👇 Orçamento no WhatsApp</b>
+        </div>
+        <div style="margin-top:3mm;background:#EFF1F3;border-radius:2.5mm;text-align:center;font-weight:700;font-size:9.5pt;padding:2.3mm">WhatsApp</div>
+        <div style="display:flex;justify-content:space-between;margin:4mm 1mm 3mm">
+          <div style="text-align:center"><div class="photo" style="width:13mm;height:13mm;border-radius:50%;border:2px solid var(--red);background-image:url(img/c8.jpg)"></div><div style="font-size:7.5pt;margin-top:1mm">Serviços</div></div>
+          <div style="text-align:center"><div class="photo" style="width:13mm;height:13mm;border-radius:50%;border:2px solid var(--red);background-image:url(img/j32.jpg)"></div><div style="font-size:7.5pt;margin-top:1mm">Resultados</div></div>
+          <div style="text-align:center"><div class="photo" style="width:13mm;height:13mm;border-radius:50%;border:2px solid var(--red);background-image:url(img/j16.jpg)"></div><div style="font-size:7.5pt;margin-top:1mm">Avaliações</div></div>
+          <div style="text-align:center"><div class="photo" style="width:13mm;height:13mm;border-radius:50%;border:2px solid var(--red);background-image:url(img/c12.jpg)"></div><div style="font-size:7.5pt;margin-top:1mm">Contato</div></div>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;margin:0 -4mm">
+          <div class="photo" style="border-radius:0;height:34mm;background-image:url(img/j32.jpg)"></div>
+          <div class="photo" style="border-radius:0;height:34mm;background-image:url(img/c8.jpg)"></div>
+          <div class="photo" style="border-radius:0;height:34mm;background-image:url(img/j16.jpg)"></div>
+          <div class="photo" style="border-radius:0;height:34mm;background-image:url(img/j28.jpg)"></div>
+          <div class="photo" style="border-radius:0;height:34mm;background-image:url(img/c12.jpg)"></div>
+          <div class="photo" style="border-radius:0;height:34mm;background-image:url(img/j24.jpg)"></div>
+        </div>
+      </div>
+    </div>
+    <!-- right -->
+    <div>
+      <div class="tag">Configuração sugerida</div>
+      <div style="font-family:'Inter Display';font-weight:900;font-style:italic;font-size:24pt">@fabresdetail</div>
+      <p style="color:var(--muted);font-size:10pt">ou a variação que estiver disponível</p>
+      <div style="margin-top:7mm;display:grid;gap:5mm">
+        <div><h2 style="font-size:12.5pt">Nome pesquisável</h2><p style="color:var(--muted)">“Fabres Auto Detail | Estética Automotiva” — aparece quando alguém busca o serviço.</p></div>
+        <div><h2 style="font-size:12.5pt">Bio direta</h2><p style="color:var(--muted)">Serviços + cidade + chamada para orçamento.</p></div>
+        <div><h2 style="font-size:12.5pt">Destaques que vendem</h2><p style="color:var(--muted)">Serviços, Resultados, Avaliações e Contato.</p></div>
+        <div><h2 style="font-size:12.5pt">Feed de prova</h2><p style="color:var(--muted)">Carros reais, processo, reflexo e antes/depois.</p></div>
+        <div><h2 style="font-size:12.5pt">Sempre um próximo passo</h2><p style="color:var(--muted)">Todo post termina levando ao WhatsApp.</p></div>
+      </div>
+      <div class="card dk" style="margin-top:8mm">
+        <div class="tag">Regra de ouro</div>
+        <p style="font-size:13pt;font-weight:800">Menos arte genérica.<br>Mais carro brilhando.</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer"><span>DZL STUDIO · Proposta Fabres Auto Detail · simulação de perfil</span><span>04</span></div>
+</section>
+
+<!-- ===== 5. CONTEÚDO ===== -->
+<section class="page dark">
+  <div class="kicker"><b>04</b> Conteúdo</div>
+  <h1>Cada carro atendido<br><em>vira dias de divulgação.</em></h1>
+  <p class="lead">Com os vídeos que já são gravados no dia a dia dá para montar Reels, Stories, antes/depois e fotos para o Google. Ninguém precisa virar influenciador.</p>
+
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:4mm;margin-top:9mm">
+    <div class="photo" style="height:92mm;background-image:url(img/j32.jpg);position:relative;overflow:hidden">
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(0,0,0,.85))"></div>
+      <div style="position:absolute;top:3mm;left:3mm;background:var(--red);font-size:8pt;font-weight:800;padding:1mm 2.5mm;border-radius:2px">REEL</div>
+      <div style="position:absolute;left:3mm;right:3mm;bottom:4mm;font-family:'Inter Display';font-weight:900;font-style:italic;font-size:12.5pt;line-height:1.05;text-transform:uppercase">Não é só<br>deixar limpo</div>
+    </div>
+    <div class="photo" style="height:92mm;background-image:url(img/c8.jpg);position:relative;overflow:hidden">
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(0,0,0,.85))"></div>
+      <div style="position:absolute;top:3mm;left:3mm;background:var(--red);font-size:8pt;font-weight:800;padding:1mm 2.5mm;border-radius:2px">REEL</div>
+      <div style="position:absolute;left:3mm;right:3mm;bottom:4mm;font-family:'Inter Display';font-weight:900;font-style:italic;font-size:12.5pt;line-height:1.05;text-transform:uppercase">Processo<br>profissional</div>
+    </div>
+    <div class="photo" style="height:92mm;background-image:url(img/j16.jpg);position:relative;overflow:hidden">
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(0,0,0,.85))"></div>
+      <div style="position:absolute;top:3mm;left:3mm;background:var(--red);font-size:8pt;font-weight:800;padding:1mm 2.5mm;border-radius:2px">REEL</div>
+      <div style="position:absolute;left:3mm;right:3mm;bottom:4mm;font-family:'Inter Display';font-weight:900;font-style:italic;font-size:12.5pt;line-height:1.05;text-transform:uppercase">Brilho que<br>aparece</div>
+    </div>
+    <div class="photo" style="height:92mm;background-image:url(img/j28.jpg);position:relative;overflow:hidden">
+      <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(0,0,0,.85))"></div>
+      <div style="position:absolute;top:3mm;left:3mm;background:var(--red);font-size:8pt;font-weight:800;padding:1mm 2.5mm;border-radius:2px">REEL</div>
+      <div style="position:absolute;left:3mm;right:3mm;bottom:4mm;font-family:'Inter Display';font-weight:900;font-style:italic;font-size:12.5pt;line-height:1.05;text-transform:uppercase">Resultado<br>final</div>
+    </div>
+  </div>
+
+  <div class="tag" style="margin-top:11mm">Rotina mensal sugerida</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:4mm">
+    <div class="card dk" style="display:flex;gap:5mm;align-items:flex-start;padding:6mm"><div style="font-family:'Inter Display';font-weight:900;font-style:italic;font-size:26pt;color:var(--red);line-height:1">4</div><div><h2 style="font-size:13pt">Reels</h2><p style="color:#C4CAD0;font-size:10.5pt">resultado, processo, detalhe e transformação</p></div></div>
+    <div class="card dk" style="display:flex;gap:5mm;align-items:flex-start;padding:6mm"><div style="font-family:'Inter Display';font-weight:900;font-style:italic;font-size:26pt;color:var(--red);line-height:1">4</div><div><h2 style="font-size:13pt">Posts / carrosséis</h2><p style="color:#C4CAD0;font-size:10.5pt">serviços, dúvidas, antes/depois e avaliações</p></div></div>
+    <div class="card dk" style="display:flex;gap:5mm;align-items:flex-start;padding:6mm"><div style="font-family:'Inter Display';font-weight:900;font-style:italic;font-size:26pt;color:var(--red);line-height:1">+</div><div><h2 style="font-size:13pt">Stories</h2><p style="color:#C4CAD0;font-size:10.5pt">bastidores, agenda, entrega do carro</p></div></div>
+    <div class="card dk" style="display:flex;gap:5mm;align-items:flex-start;padding:6mm"><div style="font-family:'Inter Display';font-weight:900;font-style:italic;font-size:26pt;color:var(--red);line-height:1">G</div><div><h2 style="font-size:13pt">Google atualizado</h2><p style="color:#C4CAD0;font-size:10.5pt">fotos novas, serviços e avaliações reais</p></div></div>
+  </div>
+  <div class="footer"><span>DZL STUDIO · Proposta Fabres Auto Detail</span><span>05</span></div>
+</section>
+
+<!-- ===== 6. GOOGLE ===== -->
+<section class="page light">
+  <div class="kicker"><b>05</b> Google + Maps</div>
+  <h1>Quem procura na região<br><em>precisa encontrar.</em></h1>
+  <p class="lead">O Instagram gera vontade. O Google pega quem já está procurando “estética automotiva”, “polimento” ou “vitrificação” — e essa busca tem que terminar em contato.</p>
+
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:3mm;margin-top:9mm">
+    <div class="card gr" style="padding:5mm"><div style="font-family:'Inter Display';font-weight:900;font-style:italic;font-size:22pt;color:var(--red)">1</div><h2 style="font-size:12pt;margin-top:1mm">Busca</h2><p style="font-size:10pt;color:var(--muted)">Pessoa pesquisa o serviço</p></div>
+    <div class="card gr" style="padding:5mm"><div style="font-family:'Inter Display';font-weight:900;font-style:italic;font-size:22pt;color:var(--red)">2</div><h2 style="font-size:12pt;margin-top:1mm">Google</h2><p style="font-size:10pt;color:var(--muted)">Perfil completo, com fotos</p></div>
+    <div class="card gr" style="padding:5mm"><div style="font-family:'Inter Display';font-weight:900;font-style:italic;font-size:22pt;color:var(--red)">3</div><h2 style="font-size:12pt;margin-top:1mm">Prova</h2><p style="font-size:10pt;color:var(--muted)">Avaliações + resultados</p></div>
+    <div class="card" style="padding:5mm;background:var(--red);color:#fff"><div style="font-family:'Inter Display';font-weight:900;font-style:italic;font-size:22pt">4</div><h2 style="font-size:12pt;margin-top:1mm">WhatsApp</h2><p style="font-size:10pt">Pedido de orçamento</p></div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1.35fr 1fr;gap:5mm;margin-top:7mm">
+    <div class="card dk">
+      <div class="tag">Perfil da empresa no Google</div>
+      <h2 style="font-size:16pt">O que será organizado</h2>
+      <ul class="dots" style="margin-top:3mm;color:#E4E7EA">
+        <li>Categoria e descrição corretas</li>
+        <li>Telefone, horário e área de atendimento</li>
+        <li>Serviços: polimento, vitrificação, higienização e detalhamento</li>
+        <li>Fotos reais do processo e dos carros prontos</li>
+        <li>Botão direto para o WhatsApp</li>
+        <li>Rotina para pedir avaliação a cada cliente</li>
+        <li>Atualização com os trabalhos novos</li>
+      </ul>
+    </div>
+    <div style="display:grid;gap:5mm;grid-template-rows:1fr auto">
+      <div class="photo" style="background-image:url(img/c12.jpg);background-position:50% 60%"></div>
+      <div class="card gr">
+        <div class="tag">Sem promessa milagrosa</div>
+        <p style="font-size:10.5pt;color:var(--muted)">Ninguém sério garante 1º lugar no Google. O que a gente garante é o negócio bem apresentado: mais lugares onde ser descoberto e um caminho curto até o orçamento.</p>
+      </div>
+    </div>
+  </div>
+  <div class="footer"><span>DZL STUDIO · Proposta Fabres Auto Detail</span><span>06</span></div>
+</section>
+
+<!-- ===== 7. PARCERIA ===== -->
+<section class="page dark">
+  <div class="kicker"><b>06</b> Proposta</div>
+  <h1>O que a DZL Studio<br><em>coloca na pista.</em></h1>
+  <p class="lead">Uma estrutura inicial para a marca nascer certa e uma rotina mensal para cada serviço virar divulgação.</p>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:5mm;margin-top:9mm">
+    <div class="card" style="background:var(--white);color:var(--ink)">
+      <div class="tag">Fase 1 · Implantação</div>
+      <h2 style="font-size:17pt">A marca no ar</h2>
+      <ul class="dots" style="margin-top:3mm">
+        <li>Nome, logo e identidade visual</li>
+        <li>Instagram profissional completo</li>
+        <li>Bio, destaques e capas</li>
+        <li>Google / Maps com serviços e fotos</li>
+        <li>WhatsApp como caminho do orçamento</li>
+        <li>Conteúdos de lançamento</li>
+      </ul>
+    </div>
+    <div class="card dk" style="border:1px solid #2A3038">
+      <div class="tag">Fase 2 · Gestão mensal</div>
+      <h2 style="font-size:17pt">A marca rodando</h2>
+      <ul class="dots" style="margin-top:3mm;color:#E4E7EA">
+        <li>4 Reels editados por mês</li>
+        <li>4 posts ou carrosséis por mês</li>
+        <li>Stories com os atendimentos</li>
+        <li>Google com fotos e serviços em dia</li>
+        <li>Organização das avaliações</li>
+        <li>Acompanhamento dos resultados</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:6mm;background:linear-gradient(110deg,#1A1E24 0%,#1A1E24 68%,#E3262B 68.2%);padding:7mm 8mm;display:flex;align-items:center;gap:8mm">
+    <div style="flex:none;width:100mm">
+      <div class="tag">Investimento</div>
+      <p style="font-size:15pt;font-weight:800;line-height:1.3">Condição de parceria,<br>combinada pessoalmente.</p>
+      <p style="font-size:10.5pt;color:#C4CAD0;margin-top:2mm">Como já existe uma relação de trabalho entre a gente, os valores e o formato da parceria ficam para uma conversa direta.</p>
+    </div>
+    <div style="flex:1;text-align:right;padding-right:2mm">
+      <div style="font-family:'Inter Display';font-weight:900;font-style:italic;font-size:30pt;line-height:1">DZL</div>
+      <div style="font-size:16pt;font-weight:900">×</div>
+      <div style="font-family:'Inter Display';font-weight:900;font-style:italic;font-size:17pt;line-height:1">FABRES</div>
+    </div>
+  </div>
+
+  <div style="position:absolute;left:16mm;right:16mm;bottom:20mm;display:flex;justify-content:space-between;align-items:flex-end">
+    <div style="width:72mm"><svg viewBox="0 0 640 210" width="100%"><use href="#logo-light"/></svg></div>
+    <div style="text-align:right;font-size:10pt;color:#9AA3AC;font-weight:600;line-height:1.5">Proposta preparada por<br><span style="color:#fff;font-weight:800;font-size:12pt">DZL Studio</span><br><span style="color:var(--red);font-weight:800">Outubro 2026</span></div>
+  </div>
+  <div class="footer"><span>Mídia paga, se usada, tem orçamento à parte. @fabresdetail sujeito à disponibilidade.</span><span>07</span></div>
+</section>
+
+
+</body>
+</html>
